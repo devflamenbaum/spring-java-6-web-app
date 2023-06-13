@@ -52,16 +52,23 @@ public class Application {
 			Author rodSaved = authorRepository.save(rod);
 			Book noEJBSaved = bookRepository.save(noEJB);
 
+			Publisher publisher = new Publisher();
+			publisher.setPublisherName("My Publisher");
+			publisher.setAddress("123 Main");
+			Publisher savedPublisher = publisherRepository.save(publisher);
+
+			dddSaved.setPublisher(savedPublisher);
+			noEJBSaved.setPublisher(savedPublisher);
+
+			dddSaved.getAuthors().add(ericSaved);
+			noEJBSaved.getAuthors().add(rodSaved);
 			ericSaved.getBooks().add(dddSaved);
 			rodSaved.getBooks().add(noEJBSaved);
 
 			authorRepository.save(ericSaved);
 			authorRepository.save(rodSaved);
-
-			Publisher publisher = new Publisher();
-			publisher.setPublisherName("My Publisher");
-			publisher.setAddress("123 Main");
-			publisherRepository.save(publisher);
+			bookRepository.save(dddSaved);
+			bookRepository.save(noEJBSaved);
 
 			System.out.println("In Bootstrap...");
 			System.out.println("Author Count: " + authorRepository.count());
